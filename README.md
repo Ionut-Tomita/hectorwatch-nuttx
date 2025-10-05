@@ -3,7 +3,7 @@
 ## Cloning the repository
 
 ```bash
-git clone --recurse-submodules git@github.com:radupascale/hectorwatch-nuttx.git
+git clone --recurse-submodules https://github.com/radupascale/hectorwatch-nuttx
 cd hectorwatch-nuttx
 git submodule update --remote
 ```
