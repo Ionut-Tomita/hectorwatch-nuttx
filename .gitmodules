@@ -1,8 +1,0 @@
-[submodule "nuttx"]
-	path = nuttx
-	url = https://github.com/radupascale/nuttx.git
-	branch = hectorwatch
-[submodule "nuttx-apps"]
-	path = nuttx-apps
-	url = https://github.com/radupascale/nuttx-apps.git
-	branch = hectorwatch

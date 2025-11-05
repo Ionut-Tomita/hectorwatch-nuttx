@@ -1,0 +1,128 @@
+/****************************************************************************
+ * include/nuttx/input/cst816s.h
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.  The
+ * ASF licenses this file to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance with the
+ * License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ *
+ ****************************************************************************/
+
+#ifndef __INCLUDE_NUTTX_INPUT_CYPRESS_CST816S_H
+#define __INCLUDE_NUTTX_INPUT_CYPRESS_CST816S_H
+
+/****************************************************************************
+ * Included Files
+ ****************************************************************************/
+
+#include <nuttx/compiler.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+/****************************************************************************
+ * Public Types
+ ****************************************************************************/
+
+/* Sensor configuration */
+
+begin_packed_struct struct cst816s_sensor_conf_s
+{
+  uint8_t conf_data[128];  /* Sensor configuration, generated with EZ-Click. */
+} end_packed_struct;
+
+/* Debug configuration */
+
+begin_packed_struct struct cst816s_debug_conf_s
+{
+  bool debug_mode;         /* Configure to debug mode if 'true'. */
+  uint8_t debug_sensor_id; /* Sensor to read in debug mode. */
+} end_packed_struct;
+
+/* Write commands to driver. */
+
+begin_packed_struct enum cst816s_cmd_e
+{
+  CYPRESS_CST816S_CMD_SENSOR_CONF = -3,
+  CYPRESS_CST816S_CMD_DEBUG_CONF,
+  CYPRESS_CST816S_CMD_CLEAR_LATCHED,
+} end_packed_struct;
+
+/* Command structure.
+ * Used to reconfigure chip with new configuration generated using
+ * EZ-Click tool.
+ */
+
+begin_packed_struct struct cst816s_cmd_sensor_conf_s
+{
+  enum cst816s_cmd_e id;
+  struct cst816s_sensor_conf_s conf;
+} end_packed_struct;
+
+/* Command structure.
+ * Use to enable debug output from chip/sensor,
+ * see 'struct cst816s_sensor_data_s'.
+ */
+
+begin_packed_struct struct cst816s_cmd_debug_conf_s
+{
+  enum cst816s_cmd_e id;
+  struct cst816s_debug_conf_s conf;
+} end_packed_struct;
+
+/* Sensor status output */
+
+begin_packed_struct struct cst816s_sensor_status_s
+{
+  unsigned int button:8;            /* ??? has maximum of 8 button sensors
+                                     * configurable.
+                                     * Each bit in this field indicate if
+                                     * corresponding button is pressed. */
+  unsigned int latched_button:8;
+  unsigned int proximity:2;         /* ??? has maximum of 2 proximity
+                                     * sensors configurable. */
+  unsigned int latched_proximity:2;
+} end_packed_struct;
+
+/* Sensor debug data output */
+
+begin_packed_struct struct cst816s_sensor_debug_s
+{
+  uint8_t sensor_total_capacitance;
+  uint16_t sensor_diff_counts;
+  uint16_t sensor_baseline;
+  uint16_t sensor_raw_counts;
+  uint16_t sensor_average_counts;
+} end_packed_struct;
+
+/* Board configuration */
+
+struct cst816s_board_s
+{
+  int (*irq_attach) (FAR struct cst816s_board_s *state,
+                     xcpt_t isr,
+                     FAR void *arg);
+  void (*irq_enable) (FAR struct cst816s_board_s *state, bool enable);
+  int (*set_power) (FAR struct cst816s_board_s *state, bool on);
+};
+
+/****************************************************************************
+ * Public Function Prototypes
+ ****************************************************************************/
+
+/* Device registration */
+
+int cst816s_register(FAR const char *devpath,
+                             FAR struct i2c_master_s *i2c_dev,
+                             uint8_t i2c_devaddr, int irq);
+
+#endif /* __INCLUDE_NUTTX_INPUT_CYPRESS_CST816S_H */

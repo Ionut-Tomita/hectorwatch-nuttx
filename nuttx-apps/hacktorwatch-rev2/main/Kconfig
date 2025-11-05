@@ -1,0 +1,30 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config HACKTORWATCH_REV2
+	tristate "Hacktorwatch second revision demo"
+	default n
+	depends on ARCH_BOARD_HACKTORWATCH
+	---help---
+		Test app for Hacktorwatch rev2
+
+if HACKTORWATCH_REV2
+
+config HACKTORWATCH_REV2_PROGNAME
+	string "Program name"
+	default "hacktorwatch"
+	---help---
+		This is the name of the program that will be used when the NSH ELF
+		program is installed.
+
+config HACKTORWATCH_REV2_PRIORITY
+	int "hacktorwatch_main task priority"
+	default 100
+
+config HACKTORWATCH_REV2_STACKSIZE
+	int "hacktorwatch_main stack size"
+	default 16384 # LVGL Demo stack size
+
+endif
