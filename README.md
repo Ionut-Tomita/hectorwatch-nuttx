@@ -1,4 +1,10 @@
-# Setup
+# HectorWatch ⌚
+
+**HectorWatch** is a custom smartwatch platform built on top of **NuttX RTOS** and **ESP32-S3**, designed for experimentation, embedded systems education, and wearable hacking.  
+It provides a minimal firmware environment with USB shell access, easy flashing, and support for custom configurations, making it a great starting point for embedded developers who want to explore real-time systems and IoT hardware.
+
+
+## Setup 🚀
 
 ## Cloning the repository
 
@@ -8,7 +14,7 @@ cd hectorwatch-nuttx
 git submodule update --remote
 ```
 
-## Dependencies
+## Dependencies ⚙️
 First make sure you have these dependencies installed on your system (taken from [here](https://ocw.cs.pub.ro/courses/si/laboratoare/01)).
 
 ```bash
@@ -25,7 +31,7 @@ echo "export PATH=$PATH:/opt/xtensa/xtensa-esp32s3-elf/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-# Using hacktorwatch
+# Using hacktorwatch ⌚
 
 > Note: Set the device in download mode before flashing
 
@@ -39,7 +45,7 @@ picocom /dev/ttyACM0 -b 115200
 
 # Using the old smartwatch version
 
-## Building
+## Building 🛠️
 
 The default config for working with the smartwatch is called `usbnsh`. You can use
 it as a template for customizing the device. For example, if you configured stuff
@@ -76,7 +82,7 @@ Afterwards, if everything went fine, the display should be fully white. You can 
 picocom /dev/ttyACM0 -b 115200
 ```
 
-# Resources
+# Resources 📋
 - [Lab01 Embedded Systems ACS](https://ocw.cs.pub.ro/courses/si/laboratoare/01)
 - [Nuttx custom boards how-to](https://nuttx.apache.org/docs/latest/guides/customboards.html)
 - [ESP32S3 does not reset after upload](https://github.com/espressif/arduino-esp32/issues/6762)
