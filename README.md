@@ -62,7 +62,7 @@ make -j$(nproc)
 ```
 
 
-## Flashing
+## Flashing ✨
 
 Flashing requires a bit of manual work. Unfortunately, the default config cannot be used to
 automatically set the device into download mode. So, until we fix this issue you'll have to do
